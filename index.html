@@ -1519,7 +1519,8 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
   // ── 3. CONTACT LINK CLICKS ───────────────────────────
   document.querySelectorAll('a.ccard').forEach(function(link) {
     link.addEventListener('click', async function() {
-      const label = (link.querySelector('.clbl') || {}).innerText || link.href;
+      const label = (link.querySelector('.clbl') || {}).innerText || link.getAttribute('href') || 'unknown';
+      if (!label || label === 'unknown') return;
       const i   = getInfo();
       const loc = await getLocation();
       const msg =
