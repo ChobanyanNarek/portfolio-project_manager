@@ -1471,16 +1471,32 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
 
   // ── 1. PAGE VIEW ──────────────────────────────────────
   window.addEventListener('load', async function() {
-    const i   = getInfo();
-    const loc = await getLocation();
-    const msg =
-      '📋 <b>Project CV</b> — Someone opened the profile page\n' +
-      '🕐 ' + i.now + ' (' + i.tz + ')\n' +
-      i.device + ' · ' + i.browser + '\n' +
-      '🌐 Lang: ' + i.lang + '\n' +
-      loc + '\n' +
-      i.refLine;
-    tgSend(msg);
+    const ua = navigator.userAgent || '';
+    if (/bot|crawl|spider|preview|slack|telegram|whatsapp|facebook|twitter|linkedin|googlebot|bingbot|headless|prerender/i.test(ua)) return;
+
+    const sendNotification = async () => {
+      const i   = getInfo();
+      const loc = await getLocation();
+      const msg =
+        '📋 <b>Project CV</b> — Someone opened the profile page\n' +
+        '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+        i.device + ' · ' + i.browser + '\n' +
+        '🌐 Lang: ' + i.lang + '\n' +
+        loc + '\n' +
+        i.refLine;
+      tgSend(msg);
+    };
+
+    if (document.visibilityState === 'visible') {
+      sendNotification();
+    } else {
+      document.addEventListener('visibilitychange', function handler() {
+        if (document.visibilityState === 'visible') {
+          document.removeEventListener('visibilitychange', handler);
+          sendNotification();
+        }
+      });
+    }
   });
 
   // ── 2. CV DOWNLOAD ────────────────────────────────────
