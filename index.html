@@ -1459,8 +1459,12 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
 
   async function getLocation() {
     try {
-      const r = await fetch('https://ipapi.co/json/');
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 4000);
+      const r = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+      clearTimeout(timeout);
       const d = await r.json();
+      if (d.error || d.reason) return '📍 Location unavailable';
       return '📍 ' + (d.city || '?') + ', ' + (d.region || '') + ', ' + (d.country_name || '?') +
              '\n🌐 IP: ' + (d.ip || '?') +
              (d.org ? '\n🏢 ISP: ' + d.org : '');
@@ -1470,11 +1474,14 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
   }
 
   // ── 1. PAGE VIEW ──────────────────────────────────────
+  let _pagePingSent = false;
   window.addEventListener('load', async function() {
     const ua = navigator.userAgent || '';
     if (/bot|crawl|spider|preview|slack|telegram|whatsapp|facebook|twitter|linkedin|googlebot|bingbot|headless|prerender/i.test(ua)) return;
 
     const sendNotification = async () => {
+      if (_pagePingSent) return;
+      _pagePingSent = true;
       const i   = getInfo();
       const loc = await getLocation();
       const msg =
