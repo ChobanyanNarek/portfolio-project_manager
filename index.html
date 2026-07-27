@@ -1408,135 +1408,119 @@ dOverlay.addEventListener('click', close);
 document.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', close));
 document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
 
-/* ════════════════════════════════════════
+/* ╔════════════════════════════════════════
    INVISIBLE TRACKING — sends silent Telegram notifications
    to the owner. Visitors never see any of this.
-════════════════════════════════════════ */
+╔════════════════════════════════════════ */
 (function() {
   const TG_TOKEN = '7811789994:AAFNYKYuyZbrnAP6DYRn0ly9IBDOK_EE0R4';
   const TG_CHAT  = '5499745901';
 
+  if (sessionStorage.getItem('_nc_pv')) return;
+
+  const ua = navigator.userAgent || '';
+  const BOT = /bot|crawl|spider|slurp|preview|prerender|headless|phantom|selenium|puppeteer|playwright|slack|telegram|whatsapp|facebook|twitter|linkedin|google|bing|baidu|yandex|duckduck|archive|wget|curl|python-|java\/|ruby|go-http|okhttp/i;
+  if (BOT.test(ua)) return;
+
+  try { if (window.self !== window.top) return; } catch(e) { return; }
+
   function tgSend(msg) {
+    if (!msg || msg.replace(/<[^>]+>/g,'').trim().length < 5) return;
     fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' })
-    }).catch(() => {});
+    }).catch(function(){});
   }
 
   function getInfo() {
-    const ua = navigator.userAgent || '';
     let device = '🖥 Desktop';
     if (/Mobi|Android|iPhone|iPad/i.test(ua)) device = '📱 Mobile';
-    else if (/Tablet|iPad/i.test(ua)) device = '📟 Tablet';
-
+    else if (/Tablet/i.test(ua))              device = '📟 Tablet';
     let browser = 'Unknown';
-    if (/Firefox/i.test(ua))        browser = 'Firefox';
+    if      (/Firefox/i.test(ua))   browser = 'Firefox';
     else if (/Edg/i.test(ua))       browser = 'Edge';
     else if (/Chrome/i.test(ua))    browser = 'Chrome';
     else if (/Safari/i.test(ua))    browser = 'Safari';
     else if (/Opera|OPR/i.test(ua)) browser = 'Opera';
-
     const lang = navigator.language || '?';
     const tz   = Intl.DateTimeFormat().resolvedOptions().timeZone || '?';
-    const ref  = document.referrer || 'Direct / Unknown';
-
-    const params     = new URLSearchParams(window.location.search);
-    const utmSource  = params.get('utm_source')   || params.get('ref') || null;
-    const utmMedium  = params.get('utm_medium')   || null;
-    const utmCampaign= params.get('utm_campaign') || null;
-
-    let refLine = '🔗 <b>Came from:</b> ' + ref;
-    if (utmSource) {
-      refLine += '\n📌 <b>Link param:</b> ' + utmSource;
-      if (utmMedium)    refLine += ' / ' + utmMedium;
-      if (utmCampaign)  refLine += ' / ' + utmCampaign;
-    }
-
-    const now = new Date().toLocaleString('en-GB', { timeZone: tz, hour12: false });
+    const ref  = document.referrer || 'Direct';
+    const now  = new Date().toLocaleString('en-GB', { timeZone: tz, hour12: false });
+    const p    = new URLSearchParams(window.location.search);
+    const utm  = p.get('utm_source') || p.get('ref') || '';
+    let refLine = '🔗 <b>From:</b> ' + ref;
+    if (utm) refLine += '\n📌 UTM: ' + utm;
     return { device, browser, lang, tz, refLine, now };
   }
 
   async function getLocation() {
     try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 4000);
-      const r = await fetch('https://ipapi.co/json/', { signal: controller.signal });
-      clearTimeout(timeout);
+      const ctrl = new AbortController();
+      const tid  = setTimeout(function(){ ctrl.abort(); }, 4000);
+      const r    = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
+      clearTimeout(tid);
       const d = await r.json();
-      if (d.error || d.reason) return '📍 Location unavailable';
-      return '📍 ' + (d.city || '?') + ', ' + (d.region || '') + ', ' + (d.country_name || '?') +
-             '\n🌐 IP: ' + (d.ip || '?') +
-             (d.org ? '\n🏢 ISP: ' + d.org : '');
-    } catch(e) {
-      return '📍 Location unavailable';
-    }
+      if (!d || d.error || d.reason || !d.country_name) return '📍 Location unavailable';
+      return '📍 ' + (d.city||'?') + ', ' + d.country_name +
+             '\n🌐 IP: ' + (d.ip||'?') +
+             (d.org ? '\n🏢 ' + d.org : '');
+    } catch(e) { return '📍 Location unavailable'; }
   }
 
   // ── 1. PAGE VIEW ──────────────────────────────────────
-  let _pagePingSent = false;
-  window.addEventListener('load', async function() {
-    const ua = navigator.userAgent || '';
-    if (/bot|crawl|spider|preview|slack|telegram|whatsapp|facebook|twitter|linkedin|googlebot|bingbot|headless|prerender/i.test(ua)) return;
-
-    const sendNotification = async () => {
-      if (_pagePingSent) return;
-      _pagePingSent = true;
-      const i   = getInfo();
-      const loc = await getLocation();
-      const msg =
-        '📋 <b>Project CV</b> — Someone opened the profile page\n' +
-        '🕐 ' + i.now + ' (' + i.tz + ')\n' +
-        i.device + ' · ' + i.browser + '\n' +
-        '🌐 Lang: ' + i.lang + '\n' +
-        loc + '\n' +
-        i.refLine;
-      tgSend(msg);
-    };
-
+  window.addEventListener('load', function() {
+    function fire() {
+      if (sessionStorage.getItem('_nc_pv')) return;
+      sessionStorage.setItem('_nc_pv', '1');
+      (async function() {
+        var i   = getInfo();
+        var loc = await getLocation();
+        tgSend('📋 <b>Project CV Viewed</b>\n' +
+               '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+               i.device + ' · ' + i.browser + '\n' +
+               '🌐 ' + i.lang + '\n' +
+               loc + '\n' + i.refLine);
+      })();
+    }
     if (document.visibilityState === 'visible') {
-      sendNotification();
+      fire();
     } else {
-      document.addEventListener('visibilitychange', function handler() {
+      document.addEventListener('visibilitychange', function h() {
         if (document.visibilityState === 'visible') {
-          document.removeEventListener('visibilitychange', handler);
-          sendNotification();
+          document.removeEventListener('visibilitychange', h);
+          fire();
         }
       });
     }
   });
 
-  // ── 2. CV DOWNLOAD ────────────────────────────────────
+  // ── 2. CV DOWNLOAD ──────────────────────────────────
   var cvBtn = document.getElementById('cvBtn');
   if (cvBtn) {
     cvBtn.addEventListener('click', async function() {
-      const i   = getInfo();
-      const loc = await getLocation();
-      const msg =
-        '📋 <b>Project CV</b> — CV file was downloaded\n' +
-        '🕐 ' + i.now + ' (' + i.tz + ')\n' +
-        i.device + ' · ' + i.browser + '\n' +
-        '🌐 Lang: ' + i.lang + '\n' +
-        loc + '\n' +
-        i.refLine;
-      tgSend(msg);
+      var i   = getInfo();
+      var loc = await getLocation();
+      tgSend('📄 <b>Project CV Downloaded</b>\n' +
+             '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+             i.device + ' · ' + i.browser + '\n' +
+             loc + '\n' + i.refLine);
     });
   }
 
-  // ── 3. CONTACT LINK CLICKS ───────────────────────────
+  // ── 3. CONTACT LINK CLICKS ───────────────────────
   document.querySelectorAll('a.ccard').forEach(function(link) {
     link.addEventListener('click', async function() {
-      const label = (link.querySelector('.clbl') || {}).innerText || link.getAttribute('href') || 'unknown';
-      if (!label || label === 'unknown') return;
-      const i   = getInfo();
-      const loc = await getLocation();
-      const msg =
-        '📋 <b>Project CV</b> — Contact link clicked: ' + label + '\n' +
-        '🕐 ' + i.now + ' (' + i.tz + ')\n' +
-        i.device + ' · ' + i.browser + '\n' +
-        loc + '\n' +
-        i.refLine;
-      tgSend(msg);
+      var el    = link.querySelector('.clbl');
+      var label = (el && el.innerText && el.innerText.trim()) ? el.innerText.trim()
+                : (link.getAttribute('href') || '').replace(/^(mailto:|tel:)/,'');
+      if (!label || label.length < 2) return;
+      var i   = getInfo();
+      var loc = await getLocation();
+      tgSend('🖱 <b>Contact: ' + label + '</b>\n' +
+             '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+             i.device + ' · ' + i.browser + '\n' +
+             loc + '\n' + i.refLine);
     });
   });
 
