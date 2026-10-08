@@ -483,6 +483,42 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
   .blob-a{width:260px;height:260px;} .blob-b{width:200px;height:200px;}
   .lang-btn{padding:.28rem .5rem;font-size:.7rem;}
 }
+
+/* ═══ PRODUCTS I BUILT ══════════════════ */
+.nav-brand,.nav-cta{white-space:nowrap;}
+@media (max-width:1360px){.nav-links a{padding:.5rem .7rem;}}
+#products{background:var(--bg);}
+.ap-list{display:flex;flex-direction:column;gap:1.75rem;}
+.ap-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;display:grid;grid-template-columns:minmax(240px,4fr) 8fr;transition:border-color .28s,box-shadow .28s;}
+.ap-card:hover{border-color:var(--blue-200);box-shadow:var(--shadow-lg);}
+.ap-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue-mid),var(--blue-lt));}
+.ap-side{background:var(--bg-soft);border-right:1px solid var(--border);padding:2rem 1.75rem;}
+.ap-name{font-family:var(--font-display);font-size:1.6rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--text);margin-bottom:.5rem;}
+.ap-side .tag{display:inline-block;margin-bottom:1.25rem;}
+.ap-facts{display:flex;flex-direction:column;gap:.75rem;}
+.ap-facts dt{font-size:.72rem;color:var(--text-muted);font-weight:500;}
+.ap-facts dd{font-size:.86rem;color:var(--text);font-weight:400;line-height:1.45;}
+.ap-link{display:inline-flex;align-items:center;gap:.35rem;margin-top:1.5rem;font-size:.88rem;font-weight:500;color:var(--blue-mid);}
+.ap-link:hover .ext{opacity:1;transform:translate(2px,-2px);}
+.ap-main{padding:2rem 2.25rem;}
+.ap-what{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--blue-mid);line-height:1.35;margin-bottom:.8rem;}
+.ap-p{font-size:.93rem;color:var(--text-muted);margin-bottom:1.25rem;max-width:72ch;}
+.ap-sub{font-family:var(--font-display);font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:.6rem;}
+.ap-loop{font-size:.85rem;color:var(--blue-mid);font-weight:500;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:8px;padding:.5rem .8rem;margin-bottom:1.25rem;}
+.ap-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;}
+.ap-dc{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:.8rem .95rem;}
+.ap-dc b{display:block;font-family:var(--font-display);font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.15rem;}
+.ap-dc p{font-size:.82rem;color:var(--text-muted);line-height:1.5;}
+.ap-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;}
+.ap-ul{list-style:none;display:flex;flex-direction:column;gap:.35rem;}
+.ap-ul li{font-size:.85rem;color:var(--text-muted);line-height:1.5;padding-left:.95rem;position:relative;}
+.ap-ul li::before{content:'';position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--blue-lt);}
+.ap-note{border-left:3px solid var(--blue-lt);padding:.1rem 0 .1rem .9rem;margin-bottom:1.1rem;}
+.ap-note:last-child{margin-bottom:0;}
+.ap-note p{font-size:.86rem;color:var(--text-muted);line-height:1.6;}
+@media (max-width:900px){.ap-card{grid-template-columns:1fr;}.ap-side{border-right:none;border-bottom:1px solid var(--border);}}
+@media (max-width:600px){.ap-grid,.ap-cols{grid-template-columns:1fr;}.ap-main,.ap-side{padding:1.5rem 1.25rem;}}
+@media print{.ap-card{break-inside:avoid;grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -498,6 +534,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#experience" data-i18n="nav_exp">Experience</a></li>
+      <li><a href="#products" data-i18n="nav_ap">Products</a></li>
       <li><a href="#competencies" data-i18n="nav_comp">Competencies</a></li>
       <li><a href="#education" data-i18n="nav_edu">Education</a></li>
       <li><a href="#certifications" data-i18n="nav_cert">Certifications</a></li>
@@ -526,6 +563,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 <div class="d-overlay" id="dOverlay"></div>
 <aside class="drawer" id="drawer">
   <a href="#experience" data-close data-i18n="nav_exp">Experience</a>
+  <a href="#products" data-close data-i18n="nav_ap">Products</a>
   <a href="#competencies" data-close data-i18n="nav_comp">Competencies</a>
   <a href="#education" data-close data-i18n="nav_edu">Education</a>
   <a href="#certifications" data-close data-i18n="nav_cert">Certifications</a>
@@ -734,9 +772,65 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 
 <div class="sec-div"></div>
 
+<!-- ═══ PRODUCTS I BUILT ═══ -->
+<section id="products">
+  <div class="sw">
+    <span class="sec-lbl" data-i18n="ap_lbl">02 · Built with AI</span>
+    <h2 class="sec-h reveal" data-i18n="ap_h">Products I Built</h2>
+    <p class="sec-sub reveal" data-i18n="ap_sub">I don't stop at the spec. Using Claude and Claude Code, I take my own product ideas from the problem to a live, working product, doing the discovery, design and build myself.</p>
+    <div class="ap-list">
+    <article class="ap-card reveal">
+      <div class="ap-side">
+        <h3 class="ap-name">ProgressOr</h3>
+        <span class="tag" data-i18n="ap_live">Live</span>
+        <dl class="ap-facts"><div><dt data-i18n="ap_f_role">Role</dt><dd data-i18n="ap_role_v">Product Builder</dd></div><div><dt data-i18n="ap_f_type">Type</dt><dd data-i18n="p1_type">B2B SaaS for software agencies</dd></div><div><dt data-i18n="ap_f_users">Users</dt><dd data-i18n="p1_users">Delivery leads, agency owners, team leads</dd></div><div><dt data-i18n="ap_f_int">Integrations</dt><dd>Jira, GitHub, GitLab</dd></div><div><dt data-i18n="ap_f_tools">Built with</dt><dd>Claude, Claude Code</dd></div><div><dt data-i18n="ap_f_stack">Stack</dt><dd>React, TypeScript, NestJS, PostgreSQL, Vercel, Render</dd></div><div><dt data-i18n="ap_f_scale">Scale</dt><dd data-i18n="p1_scale">~27,600 lines of frontend TypeScript, 478 backend files, 245 tests</dd></div></dl>
+        <a class="ap-link" href="https://www.progressor.work" target="_blank" rel="noopener"><span data-i18n="p1_link">Visit www.progressor.work</span><svg class="ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+      <div class="ap-main">
+        <p class="ap-what" data-i18n="p1_what">Delivery tracking for agencies that commit hours to clients</p>
+        <p class="ap-p" data-i18n="p1_p">Agencies agree a number of hours per role with a client before development starts. Then tasks multiply across Jira boards, and nobody knows if the team is still inside those hours until the invoice argument. ProgressOr reads what the team already does (issues moving, branches merging, hours logged) and checks it live against that agreement. Developers do no extra work, and the PM needs no spreadsheets.</p>
+        <p class="ap-loop" data-i18n="p1_loop">Jira, GitHub, GitLab › Auto sync › Daily board › Risks › Metrics › Commitment check › Reports</p>
+        <div class="ap-cols">
+          <div><div class="ap-sub" data-i18n="p1_ft">Delivery tracking</div><ul class="ap-ul"><li data-i18n="p1_f1">Daily board: per-developer checkpoints, Jira issues, PRs and deadlines, with drag-to-reorder and subtask nesting</li><li data-i18n="p1_f2">Deadlines: everything at risk, sorted by urgency, assignee, project or status, with days stuck per issue</li><li data-i18n="p1_f3">Timeline: a Gantt chart of issues across the whole team</li><li data-i18n="p1_f4">Notes: project-scoped notes with reminders</li></ul></div>
+          <div><div class="ap-sub" data-i18n="p1_ct">Commitment and reporting</div><ul class="ap-ul"><li data-i18n="p1_c1">Time Allocation: agreed hours per role or person, scoped to chosen epics, checked against spend, delivery and real capacity</li><li data-i18n="p1_c2">Schedule: a working calendar per developer with part-time periods, vacation, sick leave and public holidays</li><li data-i18n="p1_c3">Performance: cycle time (median and p85), flow efficiency, throughput, rework, ageing WIP and DORA metrics</li><li data-i18n="p1_c4">Reports: daily standup text for Slack, monthly summaries and release notes for Kanban and Scrum</li></ul></div>
+        </div>
+        <div class="ap-sub" data-i18n="ap_feat_t">What it answers</div>
+        <div class="ap-grid"><div class="ap-dc"><b data-i18n="p1_q1h">What happened today</b><p data-i18n="p1_q1">A per-developer board of live issues, their status and pull requests.</p></div><div class="ap-dc"><b data-i18n="p1_q2h">What's about to go wrong</b><p data-i18n="p1_q2">Deadlines at risk, work ageing in progress and issues nobody has touched.</p></div><div class="ap-dc"><b data-i18n="p1_q3h">How delivery performs</b><p data-i18n="p1_q3">Cycle time, flow efficiency, throughput, rework and the four DORA metrics.</p></div><div class="ap-dc"><b data-i18n="p1_q4h">Whether the commitment holds</b><p data-i18n="p1_q4">Agreed hours per role against hours spent and the team's real capacity left.</p></div></div>
+        <div class="ap-note"><div class="ap-sub" data-i18n="p1_diff_t">What makes it different</div><p data-i18n="p1_diff">Tools that track client commitments depend on developers logging time. Tools that read git never compare against a commitment. ProgressOr does both: it derives hours from Jira estimates, branch lifetimes or issue spans, and says plainly how much it couldn't measure.</p></div>
+        <div class="ap-sub" data-i18n="p1_eng_t">Engineering highlights</div>
+        <div style="margin-bottom:1.25rem"><ul class="ap-ul"><li data-i18n="p1_e1">One sync engine shared by browser and server, with a drift check</li><li data-i18n="p1_e2">Per-record saves with revisions and three-way merge on conflict</li><li data-i18n="p1_e3">All effort counted in each developer's own working hours and timezone</li><li data-i18n="p1_e4">Every number shows how much of the data it could measure</li></ul></div>
+        <div class="ap-note"><div class="ap-sub" data-i18n="ap_role_t">My role</div><p data-i18n="p1_role">Product Builder. I found the gap, defined and designed the product, then built and shipped it end to end with Claude and Claude Code.</p></div>
+      </div>
+    </article>
+    <article class="ap-card reveal">
+      <div class="ap-side">
+        <h3 class="ap-name" data-i18n="p2_name">Learning Platform</h3>
+        <span class="tag" data-i18n="ap_live">Live</span>
+        <dl class="ap-facts"><div><dt data-i18n="ap_f_role">Role</dt><dd data-i18n="ap_role_v">Product Builder</dd></div><div><dt data-i18n="ap_f_type">Type</dt><dd data-i18n="p2_type">Global multi-course e-learning platform</dd></div><div><dt data-i18n="ap_f_users">Users</dt><dd data-i18n="p2_users">Students, instructors, training centres</dd></div><div><dt data-i18n="ap_f_lang">Languages</dt><dd data-i18n="p2_lang">English, Russian, Armenian</dd></div><div><dt data-i18n="ap_f_tools">Built with</dt><dd>Claude, Claude Code</dd></div><div><dt data-i18n="ap_f_stack">Stack</dt><dd>Node.js, Express, PostgreSQL, JavaScript SPA, Render</dd></div></dl>
+        <a class="ap-link" href="https://chobanyannarek.github.io/Lessons/" target="_blank" rel="noopener"><span data-i18n="p2_link">Link to the platform</span><svg class="ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+      <div class="ap-main">
+        <p class="ap-what" data-i18n="p2_what">A global platform that turns any live course into a structured online learning experience</p>
+        <p class="ap-p" data-i18n="p2_p">Live courses usually run on scattered tools: slides in one place, quizzes in another, homework in chats and progress in spreadsheets. Students lose track and instructors can't see who is struggling. This platform brings the whole learning loop into one place, for any subject, any instructor and any training centre. Each instructor gets their own course space, and a platform owner manages them all.</p>
+        <p class="ap-loop" data-i18n="p2_loop">Learn › Practise › Take notes › Ask › Get feedback › See progress</p>
+        <div class="ap-cols">
+          <div><div class="ap-sub" data-i18n="p2_st">For students</div><ul class="ap-ul"><li data-i18n="p2_s1">Lessons that unlock step by step, gated by an optional quiz</li><li data-i18n="p2_s2">Quizzes with instant feedback, plus flashcards with spaced review</li><li data-i18n="p2_s3">Rich lesson notes, exportable as a designed Word document</li><li data-i18n="p2_s4">Private questions to the instructor and a points leaderboard</li></ul></div>
+          <div><div class="ap-sub" data-i18n="p2_it">For instructors</div><ul class="ap-ul"><li data-i18n="p2_i1">Course builder for lessons, materials, quizzes and flashcards</li><li data-i18n="p2_i2">Student approval and full profiles with scores and activity</li><li data-i18n="p2_i3">Notes review with star ratings, and a questions inbox</li><li data-i18n="p2_i4">Leaderboard controls and results export to CSV or Excel</li></ul></div>
+        </div>
+        <div class="ap-sub" data-i18n="p2_dt">Product decisions</div>
+        <div class="ap-grid"><div class="ap-dc"><b data-i18n="p2_d1h">Fair gamification</b><p data-i18n="p2_d1">Points reward real learning, like correct answers and instructor-rated notes, with caps so nobody can game it.</p></div><div class="ap-dc"><b data-i18n="p2_d2h">Feedback both ways</b><p data-i18n="p2_d2">Students get answers and ratings. Review and unanswered counters show the instructor who needs attention.</p></div><div class="ap-dc"><b data-i18n="p2_d3h">Localized from day one</b><p data-i18n="p2_d3">The interface speaks three languages, while course content stays exactly as written.</p></div><div class="ap-dc"><b data-i18n="p2_d4h">Built for any course</b><p data-i18n="p2_d4">Separate course spaces for each instructor, so one platform can serve a whole training centre.</p></div></div>
+        <div class="ap-note"><div class="ap-sub" data-i18n="ap_role_t">My role</div><p data-i18n="p2_role">Product Builder. I set the vision, user needs and priorities, designed the experience, then built, tested and launched it with Claude and Claude Code. The first course on it is my own IT Project Management course.</p></div>
+      </div>
+    </article>
+    </div>
+  </div>
+</section>
+
+<div class="sec-div"></div>
+
 <!-- ═══ COMPETENCIES ═══ -->
 <div id="comp-bg"><div id="competencies" class="sw">
-  <span class="sec-lbl" data-i18n="s2_lbl">02 · Core Competencies</span>
+  <span class="sec-lbl" data-i18n="s2_lbl">03 · Core Competencies</span>
   <h2 class="sec-h reveal" data-i18n="s2_h">What I Bring to the Table</h2>
   <p class="sec-sub reveal" data-i18n="s2_sub">A blend of strategic product thinking, agile delivery muscle, and AI-augmented productivity — built over 8+ years of leading teams through ambiguity into shipped, measurable outcomes.</p>
   <div class="comp-list">
@@ -751,7 +845,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 
 <!-- ═══ EDUCATION ═══ -->
 <section id="education"><div class="sw">
-  <span class="sec-lbl" data-i18n="s3_lbl">03 · Education</span>
+  <span class="sec-lbl" data-i18n="s3_lbl">04 · Education</span>
   <h2 class="sec-h reveal" data-i18n="s3_h">Academic Background</h2>
   <p class="sec-sub reveal" data-i18n="s3_sub">Dual master's degrees across management and international business, anchored on a foundation of economic theory.</p>
   <div class="edu-grid">
@@ -765,7 +859,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 
 <!-- ═══ CERTIFICATIONS ═══ -->
 <section id="certifications"><div class="sw">
-  <span class="sec-lbl" data-i18n="s4_lbl">04 · Certifications</span>
+  <span class="sec-lbl" data-i18n="s4_lbl">05 · Certifications</span>
   <h2 class="sec-h reveal" data-i18n="s4_h">Courses &amp; Conferences</h2>
   <p class="sec-sub reveal" data-i18n="s4_sub">Continuous learning across project management, agile coaching, and leadership.</p>
   <div class="cert-grid">
@@ -784,7 +878,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 
 <!-- ═══ RECOMMENDATIONS ═══ -->
 <section id="recommendations"><div class="sw">
-  <span class="sec-lbl" data-i18n="s5_lbl">05 · Recommendations</span>
+  <span class="sec-lbl" data-i18n="s5_lbl">06 · Recommendations</span>
   <h2 class="sec-h reveal" data-i18n="s5_h">What People Say</h2>
   <p class="sec-sub reveal" data-i18n="s5_sub">Recommendations from colleagues, direct managers, and partners — published on LinkedIn.</p>
   <div class="rec-carousel-wrap">
@@ -994,7 +1088,7 @@ en:{
   r_sfl1:'Head of Financial Products & Projects Management',
   r_sfl2:'Senior Project Manager',
   r_uc:'Sales and Service Specialist', r_ucs:'Central Service Branch',
-  s2_lbl:'02 · Core Competencies', s2_h:'What I Bring to the Table',
+  s2_lbl:'03 · Core Competencies', s2_h:'What I Bring to the Table',
   s2_sub:'A blend of strategic product thinking, agile delivery muscle, and AI-augmented productivity — built over 8+ years of leading teams through ambiguity into shipped, measurable outcomes.',
   c1h:'Agile Methodologies',
   c1d:'I drive agile transformation across teams — applying Scrum for predictable delivery, Kanban for continuous flow, XP for engineering excellence, Lean Software Development for waste elimination, and SAFe for enterprise-scale programs.',
@@ -1004,12 +1098,12 @@ en:{
   c4d:'I build and lead cross-functional teams, align stakeholders with competing priorities, map value streams, and drive measurable process improvements that compound over quarters.',
   c5h:'Tools & AI-Augmented Workflow',
   c5d:'Hands-on with industry-standard PM platforms and an early adopter of AI-augmented workflows that 5× my output on synthesis, drafting, and analysis.',
-  s3_lbl:'03 · Education', s3_h:'Academic Background',
+  s3_lbl:'04 · Education', s3_h:'Academic Background',
   s3_sub:"Dual master's degrees across management and international business, anchored on a foundation of economic theory.",
   e1d:'Master of Science in Management', e1s:'Business Administration (Management)',
   e2d:'Master of Science in Management', e2s:'International Management',
   e3d:'Bachelor of Science in Economics', e3s:'Theory of Economics',
-  s4_lbl:'04 · Certifications', s4_h:'Courses & Conferences',
+  s4_lbl:'05 · Certifications', s4_h:'Courses & Conferences',
   s4_sub:'Continuous learning across project management, agile coaching, and leadership.',
   cont_h:'Let\'s build<br>something<br><em>worth delivering.</em>',
   cont_sub:'Open to senior project management roles, consulting engagements, and speaking opportunities. Based in Yerevan, Armenia — available globally.',
@@ -1021,7 +1115,7 @@ en:{
   rec4:'I have had the pleasure of working closely with Narek Chobanyan and I can confidently say that he is an exceptional Agile Project Manager with a strong track record of leadership and success. If you are looking for someone who combines technical expertise with strategic leadership, Narek is the person you need.',
   rec5:"Narek is highly motivated, always driven to achieve his goals and take initiative without needing external prompts. A true self-starter, Narek excels at independently tackling tasks and projects, ensuring that each step is carried out efficiently. Time management is one of Narek\'s strong suits, and he reliably meets deadlines, ensuring everything is completed on time and to a high standard.",
   rec6:"Narek is a highly organized professional who constantly strives to improve his work. We collaborated on several projects within the same team, and I can state with confidence that his management skills will leave no room for doubt in any professional setting.",
-  s5_lbl:'05 · Recommendations', s5_h:'What People Say',
+  s5_lbl:'06 · Recommendations', s5_h:'What People Say',
   s5_sub:'Recommendations from colleagues, direct managers, and partners — published on LinkedIn.',
   foot1:'© 2025 Narek Chobanyan · All rights reserved',
   foot2:'Senior Project Manager · Yerevan, Armenia',
@@ -1058,7 +1152,7 @@ ru:{
   r_sfl1:'Руководитель управления финансовыми продуктами и проектами',
   r_sfl2:'Старший менеджер проектов',
   r_uc:'Специалист по продажам и обслуживанию', r_ucs:'Центральный сервисный офис',
-  s2_lbl:'02 · Ключевые компетенции', s2_h:'Что я предлагаю',
+  s2_lbl:'03 · Ключевые компетенции', s2_h:'Что я предлагаю',
   s2_sub:'Сочетание стратегического продуктового мышления, гибких поставок и AI-усиленной продуктивности — выстроенное за 8+ лет руководства командами в условиях неопределённости.',
   c1h:'Agile-методологии',
   c1d:'Провожу agile-трансформацию команд: Scrum для предсказуемых поставок, Kanban для непрерывного потока, XP для инженерного совершенства, Lean-разработка для устранения потерь, SAFe для масштабирования.',
@@ -1068,12 +1162,12 @@ ru:{
   c4d:'Создаю и возглавляю кросс-функциональные команды, согласовываю стейкхолдеров с конкурирующими приоритетами, картирую потоки ценности и внедряю накопительные улучшения.',
   c5h:'Инструменты и AI-рабочий процесс',
   c5d:'Работаю с профессиональными PM-платформами и являюсь ранним пользователем AI-рабочих процессов, которые увеличивают производительность в 5 раз при синтезе, написании и анализе.',
-  s3_lbl:'03 · Образование', s3_h:'Академическое образование',
+  s3_lbl:'04 · Образование', s3_h:'Академическое образование',
   s3_sub:'Две степени магистра в области управления и международного бизнеса, выстроенные на фундаменте экономической теории.',
   e1d:'Магистр наук в области управления', e1s:'Деловое администрирование (Менеджмент)',
   e2d:'Магистр наук в области управления', e2s:'Международный менеджмент',
   e3d:'Бакалавр наук в области экономики', e3s:'Теория экономики',
-  s4_lbl:'04 · Сертификаты', s4_h:'Курсы и конференции',
+  s4_lbl:'05 · Сертификаты', s4_h:'Курсы и конференции',
   s4_sub:'Непрерывное обучение в области управления проектами, agile-коучинга и лидерства.',
   cont_h:'Давайте создадим<br>что-то<br><em>достойное поставки.</em>',
   cont_sub:'Открыт к старшим ролям в управлении проектами, консалтинговым проектам и выступлениям. Нахожусь в Ереване — доступен по всему миру.',
@@ -1085,11 +1179,36 @@ ru:{
   rec4:'Мне довелось тесно работать с Нарeком Чобаняном, и я с уверенностью могу сказать, что он исключительный Agile-менеджер проектов с впечатляющим опытом лидерства и успехов. Если вы ищете человека, сочетающего техническую экспертизу со стратегическим лидерством — Нарек именно тот, кто вам нужен.',
   rec5:'Нарек крайне мотивирован — всегда стремится к своим целям и берёт инициативу без каких-либо внешних стимулов. Настоящий самостартер: он мастерски справляется с задачами и проектами самостоятельно, обеспечивая эффективное выполнение каждого шага. Тайм-менеджмент — одна из его сильных сторон: он неизменно соблюдает дедлайны и выполняет работу в срок на высоком уровне.',
   rec6:'Нарек — высокоорганизованный профессионал, который постоянно стремится к совершенствованию своей работы. Мы сотрудничали в нескольких проектах в рамках одной команды, и я с уверенностью могу заявить: его управленческие навыки не оставят никаких сомнений ни в одной профессиональной среде.',
-  s5_lbl:'05 · Рекомендации', s5_h:'Что говорят коллеги',
+  s5_lbl:'06 · Рекомендации', s5_h:'Что говорят коллеги',
   s5_sub:'Рекомендации от коллег, руководителей и партнёров — опубликованы на LinkedIn.',
   foot1:'© 2025 Нарек Чобанян · Все права защищены',
   foot2:'Старший менеджер проектов · Ереван, Армения',
 },
+};
+
+
+/* Products I Built — translations */
+Object.assign(T.en,{"ap_lbl": "02 · Built with AI", "ap_h": "Products I Built", "ap_sub": "I don't stop at the spec. Using Claude and Claude Code, I take my own product ideas from the problem to a live, working product, doing the discovery, design and build myself.", "nav_ap": "Products", "ap_live": "Live", "ap_f_type": "Type", "ap_f_users": "Users", "ap_f_tools": "Built with", "ap_f_stack": "Stack", "ap_f_int": "Integrations", "ap_f_scale": "Scale", "ap_f_lang": "Languages", "ap_role_t": "My role", "ap_feat_t": "What it answers", "ap_f_role": "Role", "ap_role_v": "Product Builder", "hero_ai_t": "AI Product Builder", "hero_ai": "Not just a PM: I design, build and ship my own products with Claude and Claude Code.", "hero_ai_cta": "See my products", "cv_p_h": "Products I Built", "cv_p1_s": "B2B SaaS for software agencies", "cv_p1_b1": "Delivery tracking tool that syncs Jira, GitHub and GitLab and checks progress live against the hours agreed with the client", "cv_p1_b2": "Built end to end with Claude and Claude Code (React, TypeScript, NestJS, PostgreSQL)", "cv_p2_s": "Global e-learning platform", "cv_p2_b1": "Multi-course platform with lessons, quizzes, flashcards, notes, a leaderboard and an instructor admin panel, in English, Russian and Armenian", "cv_p2_b2": "Built end to end with Claude and Claude Code (Node.js, Express, PostgreSQL)", "cv_role": "Product Builder", "p1_name": "ProgressOr", "p1_what": "Delivery tracking for agencies that commit hours to clients", "p1_type": "B2B SaaS for software agencies", "p1_users": "Delivery leads, agency owners, team leads", "p1_scale": "~27,600 lines of frontend TypeScript, 478 backend files, 245 tests", "p1_p": "Agencies agree a number of hours per role with a client before development starts. Then tasks multiply across Jira boards, and nobody knows if the team is still inside those hours until the invoice argument. ProgressOr reads what the team already does (issues moving, branches merging, hours logged) and checks it live against that agreement. Developers do no extra work, and the PM needs no spreadsheets.", "p1_q1h": "What happened today", "p1_q1": "A per-developer board of live issues, their status and pull requests.", "p1_q2h": "What's about to go wrong", "p1_q2": "Deadlines at risk, work ageing in progress and issues nobody has touched.", "p1_q3h": "How delivery performs", "p1_q3": "Cycle time, flow efficiency, throughput, rework and the four DORA metrics.", "p1_q4h": "Whether the commitment holds", "p1_q4": "Agreed hours per role against hours spent and the team's real capacity left.", "p1_diff_t": "What makes it different", "p1_diff": "Tools that track client commitments depend on developers logging time. Tools that read git never compare against a commitment. ProgressOr does both: it derives hours from Jira estimates, branch lifetimes or issue spans, and says plainly how much it couldn't measure.", "p1_eng_t": "Engineering highlights", "p1_e1": "One sync engine shared by browser and server, with a drift check", "p1_e2": "Per-record saves with revisions and three-way merge on conflict", "p1_e3": "All effort counted in each developer's own working hours and timezone", "p1_e4": "Every number shows how much of the data it could measure", "p1_role": "Product Builder. I found the gap, defined and designed the product, then built and shipped it end to end with Claude and Claude Code.", "p1_link": "Visit www.progressor.work", "p1_loop": "Jira, GitHub, GitLab › Auto sync › Daily board › Risks › Metrics › Commitment check › Reports", "p1_ft": "Delivery tracking", "p1_f1": "Daily board: per-developer checkpoints, Jira issues, PRs and deadlines, with drag-to-reorder and subtask nesting", "p1_f2": "Deadlines: everything at risk, sorted by urgency, assignee, project or status, with days stuck per issue", "p1_f3": "Timeline: a Gantt chart of issues across the whole team", "p1_f4": "Notes: project-scoped notes with reminders", "p1_ct": "Commitment and reporting", "p1_c1": "Time Allocation: agreed hours per role or person, scoped to chosen epics, checked against spend, delivery and real capacity", "p1_c2": "Schedule: a working calendar per developer with part-time periods, vacation, sick leave and public holidays", "p1_c3": "Performance: cycle time (median and p85), flow efficiency, throughput, rework, ageing WIP and DORA metrics", "p1_c4": "Reports: daily standup text for Slack, monthly summaries and release notes for Kanban and Scrum", "p2_name": "Learning Platform", "p2_what": "A global platform that turns any live course into a structured online learning experience", "p2_type": "Global multi-course e-learning platform", "p2_users": "Students, instructors, training centres", "p2_lang": "English, Russian, Armenian", "p2_p": "Live courses usually run on scattered tools: slides in one place, quizzes in another, homework in chats and progress in spreadsheets. Students lose track and instructors can't see who is struggling. This platform brings the whole learning loop into one place, for any subject, any instructor and any training centre. Each instructor gets their own course space, and a platform owner manages them all.", "p2_loop": "Learn › Practise › Take notes › Ask › Get feedback › See progress", "p2_st": "For students", "p2_s1": "Lessons that unlock step by step, gated by an optional quiz", "p2_s2": "Quizzes with instant feedback, plus flashcards with spaced review", "p2_s3": "Rich lesson notes, exportable as a designed Word document", "p2_s4": "Private questions to the instructor and a points leaderboard", "p2_it": "For instructors", "p2_i1": "Course builder for lessons, materials, quizzes and flashcards", "p2_i2": "Student approval and full profiles with scores and activity", "p2_i3": "Notes review with star ratings, and a questions inbox", "p2_i4": "Leaderboard controls and results export to CSV or Excel", "p2_d1h": "Fair gamification", "p2_d1": "Points reward real learning, like correct answers and instructor-rated notes, with caps so nobody can game it.", "p2_d2h": "Feedback both ways", "p2_d2": "Students get answers and ratings. Review and unanswered counters show the instructor who needs attention.", "p2_d3h": "Localized from day one", "p2_d3": "The interface speaks three languages, while course content stays exactly as written.", "p2_d4h": "Built for any course", "p2_d4": "Separate course spaces for each instructor, so one platform can serve a whole training centre.", "p2_dt": "Product decisions", "p2_role": "Product Builder. I set the vision, user needs and priorities, designed the experience, then built, tested and launched it with Claude and Claude Code. The first course on it is my own IT Project Management course.", "p2_link": "Link to the platform"});
+Object.assign(T.ru,{"ap_lbl": "02 · Создано с ИИ", "ap_h": "Мои продукты", "ap_sub": "Я не останавливаюсь на спецификации. С помощью Claude и Claude Code я довожу собственные идеи от проблемы до работающего продукта: сам провожу исследование, проектирую и разрабатываю.", "nav_ap": "Продукты", "ap_live": "Запущен", "ap_f_type": "Тип", "ap_f_users": "Пользователи", "ap_f_tools": "Создано с", "ap_f_stack": "Стек", "ap_f_int": "Интеграции", "ap_f_scale": "Масштаб", "ap_f_lang": "Языки", "ap_role_t": "Моя роль", "ap_feat_t": "На что отвечает", "ap_f_role": "Роль", "ap_role_v": "Создатель продукта (Product Builder)", "hero_ai_t": "Создаю продукты с помощью ИИ", "hero_ai": "Не просто PM: я сам проектирую, создаю и запускаю продукты с помощью Claude и Claude Code.", "hero_ai_cta": "Мои продукты", "cv_p_h": "Мои продукты", "cv_p1_s": "B2B SaaS для IT-агентств", "cv_p1_b1": "Инструмент контроля поставки: синхронизирует Jira, GitHub и GitLab и в реальном времени сверяет прогресс с согласованными с клиентом часами", "cv_p1_b2": "Полностью создан с помощью Claude и Claude Code (React, TypeScript, NestJS, PostgreSQL)", "cv_p2_s": "Глобальная образовательная платформа", "cv_p2_b1": "Мультикурсовая платформа с уроками, тестами, карточками, конспектами, рейтингом и панелью преподавателя на английском, русском и армянском", "cv_p2_b2": "Полностью создана с помощью Claude и Claude Code (Node.js, Express, PostgreSQL)", "cv_role": "Создатель продукта", "p1_name": "ProgressOr", "p1_what": "Контроль поставки для агентств, которые обязуются перед клиентом по часам", "p1_type": "B2B SaaS для IT-агентств", "p1_users": "Руководители поставки, владельцы агентств, тимлиды", "p1_scale": "~27 600 строк фронтенда на TypeScript, 478 файлов бэкенда, 245 тестов", "p1_p": "До начала разработки агентство согласует с клиентом количество часов по ролям. Затем задачи множатся по доскам Jira, и никто не знает, укладывается ли команда в эти часы, пока не начнётся спор о счёте. ProgressOr читает то, что команда уже делает (движение задач, слияние веток, списанные часы), и в реальном времени сверяет это с договорённостью. Разработчикам не нужно ничего дополнительно делать, а PM не нужны таблицы.", "p1_q1h": "Что произошло сегодня", "p1_q1": "Доска по каждому разработчику: актуальные задачи, их статус и pull request'ы.", "p1_q2h": "Что вот-вот пойдёт не так", "p1_q2": "Сроки под угрозой, зависшие в работе задачи и задачи, к которым никто не прикасался.", "p1_q3h": "Как идёт поставка", "p1_q3": "Cycle time, эффективность потока, пропускная способность, доработки и четыре метрики DORA.", "p1_q4h": "Выполняется ли обязательство", "p1_q4": "Согласованные часы по ролям против потраченных и реальная оставшаяся мощность команды.", "p1_diff_t": "Чем он отличается", "p1_diff": "Инструменты, отслеживающие обязательства перед клиентом, зависят от того, списывают ли разработчики время. Инструменты, читающие git, не сравнивают данные с обязательством. ProgressOr делает и то, и другое: выводит часы из оценок Jira, времени жизни веток или длительности задач и честно показывает, что измерить не удалось.", "p1_eng_t": "Технические особенности", "p1_e1": "Единый движок синхронизации для браузера и сервера с проверкой расхождений", "p1_e2": "Сохранение по записям с ревизиями и трёхсторонним слиянием при конфликте", "p1_e3": "Все трудозатраты считаются в рабочих часах и часовом поясе каждого разработчика", "p1_e4": "Каждая цифра показывает, какую долю данных удалось измерить", "p1_role": "Создатель продукта. Я нашёл пробел на рынке, определил и спроектировал продукт, а затем полностью создал и запустил его с помощью Claude и Claude Code.", "p1_link": "Открыть www.progressor.work", "p1_loop": "Jira, GitHub, GitLab › Автосинхронизация › Ежедневная доска › Риски › Метрики › Проверка обязательств › Отчёты", "p1_ft": "Отслеживание поставки", "p1_f1": "Ежедневная доска: чекпоинты по разработчикам, задачи Jira, PR и сроки, с перетаскиванием и вложенными подзадачами", "p1_f2": "Сроки: всё, что под угрозой, с сортировкой по срочности, исполнителю, проекту или статусу и днями простоя по задаче", "p1_f3": "Таймлайн: диаграмма Ганта по задачам всей команды", "p1_f4": "Заметки: заметки по проектам с напоминаниями", "p1_ct": "Обязательства и отчётность", "p1_c1": "Распределение времени: согласованные часы по ролям или людям в рамках выбранных эпиков, сверка с затратами, поставкой и реальной мощностью", "p1_c2": "Расписание: рабочий календарь каждого разработчика с частичной занятостью, отпусками, больничными и праздниками", "p1_c3": "Производительность: cycle time (медиана и p85), эффективность потока, пропускная способность, доработки, стареющий WIP и метрики DORA", "p1_c4": "Отчёты: текст стендапа для Slack, ежемесячные сводки и release notes для Kanban и Scrum", "p2_name": "Образовательная платформа", "p2_what": "Глобальная платформа, которая превращает любой живой курс в структурированное онлайн-обучение", "p2_type": "Глобальная мультикурсовая e-learning платформа", "p2_users": "Студенты, преподаватели, учебные центры", "p2_lang": "Английский, русский, армянский", "p2_p": "Живые курсы обычно разбросаны по разным инструментам: слайды в одном месте, тесты в другом, домашние задания в чатах, прогресс в таблицах. Студенты теряются, а преподаватель не видит, кому трудно. Платформа объединяет весь цикл обучения в одном месте для любого предмета, преподавателя и учебного центра. У каждого преподавателя своё пространство курса, а владелец платформы управляет всеми.", "p2_loop": "Учиться › Практиковаться › Конспектировать › Спрашивать › Получать обратную связь › Видеть прогресс", "p2_st": "Для студентов", "p2_s1": "Уроки открываются по шагам, переход может требовать теста", "p2_s2": "Тесты с мгновенной обратной связью и карточки с интервальным повторением", "p2_s3": "Конспекты уроков с экспортом в оформленный документ Word", "p2_s4": "Личные вопросы преподавателю и рейтинг по баллам", "p2_it": "Для преподавателей", "p2_i1": "Конструктор курса: уроки, материалы, тесты и карточки", "p2_i2": "Одобрение студентов и полные профили с баллами и активностью", "p2_i3": "Проверка конспектов с оценками и входящие вопросы", "p2_i4": "Управление рейтингом и экспорт результатов в CSV или Excel", "p2_d1h": "Честная геймификация", "p2_d1": "Баллы начисляются за реальное обучение, например правильные ответы и оценённые конспекты, с лимитами против накруток.", "p2_d2h": "Обратная связь в обе стороны", "p2_d2": "Студенты получают ответы и оценки. Счётчики непроверенного и неотвеченного показывают преподавателю, кому нужно внимание.", "p2_d3h": "Локализация с первого дня", "p2_d3": "Интерфейс на трёх языках, а содержание курса остаётся в точности как его написал автор.", "p2_d4h": "Подходит для любого курса", "p2_d4": "Отдельные пространства для каждого преподавателя, так что одна платформа обслуживает целый учебный центр.", "p2_dt": "Продуктовые решения", "p2_role": "Создатель продукта. Я определил видение, потребности пользователей и приоритеты, спроектировал опыт, а затем создал, протестировал и запустил платформу с помощью Claude и Claude Code. Первый курс на ней — мой курс по управлению IT-проектами.", "p2_link": "Ссылка на платформу"});
+
+/* Russian for fixed texts (skills, universities, courses, recommendations) */
+const RU_FIX = {"Discovery & Validation": "Исследование и валидация", "Roadmapping": "Дорожные карты", "Prioritization": "Приоритизация", "MVP Planning": "Планирование MVP", "Iterative Delivery": "Итеративная поставка", "Risk Management": "Управление рисками", "Scope Management": "Управление содержанием", "Resource Planning": "Планирование ресурсов", "Budget Management": "Управление бюджетом", "Stakeholder Management": "Управление стейкхолдерами", "Cross-functional Teams": "Кросс-функциональные команды", "Value Stream Mapping": "Картирование потока ценности", "Process Improvement": "Улучшение процессов", "Client Management": "Работа с клиентами", "Prompt Engineering": "Промпт-инжиниринг", "Product Strategy": "Продуктовая стратегия", "Yerevan State University (YSU)": "Ереванский государственный университет (ЕГУ)", "Peoples' Friendship University of Russia (RUDN)": "Российский университет дружбы народов (РУДН)", "Peoples' Friendship University (RUDN)": "Российский университет дружбы народов (РУДН)", "\"Project Management Skills for Leaders\" — Dana Brownlee": "«Навыки управления проектами для руководителей» — Дана Браунли", "\"Advance Your Skills as a Project Manager\" — Learning Path": "«Развитие навыков руководителя проектов» — учебная программа", "\"Becoming a Product Manager: A Complete Guide\" — Cole Mercer & Evan Kimbrell": "«Как стать продакт-менеджером: полное руководство» — Коул Мерсер и Эван Кимбрелл", "\"Product Management: Building a Product Strategy\" — Teg Grenager & Eldad Persky": "«Управление продуктом: построение продуктовой стратегии» — Тег Гренагер и Эльдад Перски", "\"Product Management: Building a Product Roadmap\" — Teg Grenager & Eldad Persky": "«Управление продуктом: построение дорожной карты» — Тег Гренагер и Эльдад Перски", "CertPrep: PMI Agile Certified Practitioner (PMI-ACP)® — Kelley": "Подготовка к сертификации PMI Agile Certified Practitioner (PMI-ACP)® — Келли", "Agile Team Coaching Program": "Программа коучинга Agile-команд", "\"IT Project Management\" Training": "Тренинг «Управление IT-проектами»", "Roza Petrosyan": "Роза Петросян", "Sebastia Isaghulyan": "Себастия Исагулян", "Diana Asatryan": "Диана Асатрян", "Maneh Melkonian": "Мане Мелконян", "Amasya Ghazaryan, PhD": "Амасия Казарян, PhD", "Argine Avagyan": "Аргине Авагян", "Quality Control & Service Quality Assurance": "Контроль качества и обеспечение качества сервиса", "Head of Lean-Agile PM Division, SoftConstruct · KMP®": "Руководитель Lean-Agile PM-подразделения, SoftConstruct · KMP®", "BI Developer · Data & Product Analyst": "BI-разработчик · Аналитик данных и продукта", "HR Manager · Strategic HR Leader": "HR-менеджер · Стратегический HR-лидер", "Quant · Data Scientist · Risk Manager": "Квант-аналитик · Data Scientist · Риск-менеджер", "Project Manager · Web3 & FinTech · PMI Member": "Руководитель проектов · Web3 и FinTech · Член PMI", "View all recommendations on LinkedIn": "Все рекомендации в LinkedIn", "Invested in once. Paid off a million times.": "Вложен однажды. Окупился миллион раз."};
+const _ruOrig = new WeakMap();
+function applyRuFix(lang){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+  while((n=w.nextNode())){
+    if(n.parentElement&&n.parentElement.closest('script,style'))continue;
+    if(lang==='ru'){const k=n.textContent.trim(); if(RU_FIX[k]!==undefined){_ruOrig.set(n,n.textContent); n.textContent=n.textContent.replace(k,RU_FIX[k]);}}
+    else if(_ruOrig.has(n)){n.textContent=_ruOrig.get(n); _ruOrig.delete(n);}
+  }
+}
+const _setLangBase = setLang;
+setLang = function(lang){ _setLangBase(lang); applyRuFix(lang); };
+const _cvBase = generateCVHtml;
+generateCVHtml = function(lang){
+  let h=_cvBase(lang);
+  if(lang==='ru'){ for(const k in RU_FIX){ const e=k.replace(/&/g,'&amp;'); h=h.split('>'+k+'<').join('>'+RU_FIX[k]+'<').split('>'+e+'<').join('>'+RU_FIX[k]+'<'); } }
+  return h;
 };
 
 /* ════════════════════════════════════════
@@ -1219,12 +1338,22 @@ a{color:inherit;text-decoration:none;}
 
 <div class="summary">Invested in once. Paid off a million times.</div>
 
-<div class="st">${t.s1_lbl.replace('01 · ','')}</div>
+<div class="st">${t.s1_lbl.replace(/^\d+ · /,'')}</div>
 <div class="exp">${expHtml}</div>
+
+<div class="st st2">${t.cv_p_h}</div>
+<div class="exp">
+  <div class="jb"><div class="jh"><span class="co">ProgressOr</span><span class="cd"><a href="https://www.progressor.work" style="color:#2563eb">www.progressor.work</a></span></div>
+    <div class="rr"><div class="rl"><span class="rt">${t.cv_role}</span><span class="rs"> · ${t.cv_p1_s}</span></div></div>
+    <ul class="bl"><li>${t.cv_p1_b1}</li><li>${t.cv_p1_b2}</li></ul></div>
+  <div class="jb"><div class="jh"><span class="co">${t.p2_name}</span><span class="cd"><a href="https://chobanyannarek.github.io/Lessons/" style="color:#2563eb">chobanyannarek.github.io/Lessons</a></span></div>
+    <div class="rr"><div class="rl"><span class="rt">${t.cv_role}</span><span class="rs"> · ${t.cv_p2_s}</span></div></div>
+    <ul class="bl"><li>${t.cv_p2_b1}</li><li>${t.cv_p2_b2}</li></ul></div>
+</div>
 
 <div class="two">
   <div>
-    <div class="st">${t.s3_lbl.replace('03 · ','')}</div>
+    <div class="st">${t.s3_lbl.replace(/^\d+ · /,'')}</div>
     <div class="ei"><div class="ed">${t.e1d}</div><div class="es">${t.e1s}</div><div class="eu">Yerevan State University (YSU)</div><div class="ey">2018 — 2020</div></div>
     <div class="ei"><div class="ed">${t.e2d}</div><div class="es">${t.e2s}</div><div class="eu">Peoples' Friendship University (RUDN)</div><div class="ey">2018 — 2020</div></div>
     <div class="ei"><div class="ed">${t.e3d}</div><div class="es">${t.e3s}</div><div class="eu">Yerevan State University (YSU)</div><div class="ey">2012 — 2018</div></div>
@@ -1235,7 +1364,7 @@ a{color:inherit;text-decoration:none;}
     <div class="lr"><span class="ln">${t.l_ru}</span><div class="lb"><div class="lf" style="width:88%"></div></div><span class="ll">${t.l_pro}</span></div>
   </div>
   <div>
-    <div class="st">${t.s4_lbl.replace('04 · ','')}</div>
+    <div class="st">${t.s4_lbl.replace(/^\d+ · /,'')}</div>
     ${CERTS.map(c=>`<div class="ci">${c}</div>`).join('')}
 
     <div class="st st2">${isRu ? 'Навыки' : 'Skills'}</div>
