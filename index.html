@@ -686,17 +686,6 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
         <div class="tl-line"></div>
         <div class="co reveal">
           <div class="co-head">
-            <a class="co-name" href="https://www.linkedin.com/company/moneteam/" target="_blank" rel="noopener">M-One<svg class="ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-            <span class="tag" data-i18n="tag_mone">IT Outsourcing · Web &amp; Mobile</span>
-          </div>
-          <div class="roles"><div class="rc"><div><div class="rt" data-i18n="r_mone">Senior Project Manager</div>
-          <div class="ral">
-            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b1">Driving project strategy, planning and stakeholder alignment across engineering and business teams</span></div>
-            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b2">Establishing agile delivery framework and OKR-based planning cycles from early stage</span></div>
-          </div></div><span class="rd">11/2025 — 10/2026</span></div></div>
-        </div>
-        <div class="co reveal">
-          <div class="co-head">
             <a class="co-name" href="https://www.linkedin.com/company/teachme-am/" target="_blank" rel="noopener">Teachme Trainings Center<svg class="ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
             <span class="tag" data-i18n="tag_edu">Education</span>
           </div>
@@ -705,6 +694,17 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
             <div class="ra"><span class="ra-dot"></span><span data-ra="r_tm_b1">Designed end-to-end curriculum covering Scrum, Kanban, SAFe, and core PM frameworks</span></div>
             <div class="ra"><span class="ra-dot"></span><span data-ra="r_tm_b2">Coaching professionals actively transitioning into IT project management careers</span></div>
           </div></div><span class="rd">01/2025 — <span data-i18n="r_present">Present</span></span></div></div>
+        </div>
+        <div class="co reveal">
+          <div class="co-head">
+            <a class="co-name" href="https://www.linkedin.com/company/moneteam/" target="_blank" rel="noopener">M-One<svg class="ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+            <span class="tag" data-i18n="tag_mone">IT Outsourcing · Web &amp; Mobile</span>
+          </div>
+          <div class="roles"><div class="rc"><div><div class="rt" data-i18n="r_mone">Senior Project Manager</div>
+          <div class="ral">
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b1">Driving project strategy, planning and stakeholder alignment across engineering and business teams</span></div>
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b2">Establishing agile delivery framework and OKR-based planning cycles from early stage</span></div>
+          </div></div><span class="rd">11/2025 — 10/2026</span></div></div>
         </div>
         <div class="co reveal">
           <div class="co-head">
@@ -1259,11 +1259,32 @@ function generateCVHtml(lang) {
         { tk:t.r_uc, sk:t.r_ucs, dt:'08/2016 — 09/2018', bk:['r_uc_b1','r_uc_b2'] }]},
   ];
 
-  const expHtml = JOBS.map(j=>`
+  /* Order: roles still active first (newest start first), then past roles (latest end first).
+     Status is computed from today's date, so M-One moves to "Previous" automatically after its end date. */
+  const JM = {
+    'M-One':                    { s:[2025,11], e:[2026,10,30] },
+    'Teachme Trainings Center': { s:[2025,1],  e:null },
+    'SoftConstruct CJSC':       { s:[2022,2],  e:[2025,10] },
+    'Fast Shift LLC':           { s:[2024,6],  e:[2024,11] },
+    'ShopForLife LLC':          { s:[2018,3],  e:[2024,10] },
+    'UCOM LLC':                 { s:[2016,8],  e:[2018,9] }
+  };
+  const endD = j=>{ const e=JM[j.co].e; return e ? new Date(e[0], e[1]-1, e[2] || new Date(e[0],e[1],0).getDate(), 23,59,59) : null; };
+  const startK = j=>JM[j.co].s[0]*12+JM[j.co].s[1];
+  const endK = j=>{ const e=JM[j.co].e; return e ? e[0]*12+e[1] : 9999*12; };
+  const nowD = new Date();
+  const isCur = j=>{ const e=endD(j); return !e || e>=nowD; };
+  const curJobs  = JOBS.filter(isCur).sort((a,b)=>endK(b)-endK(a) || startK(b)-startK(a));
+  const pastJobs = JOBS.filter(j=>!isCur(j)).sort((a,b)=>endK(b)-endK(a) || startK(b)-startK(a));
+  const jobHtml = j=>`
     <div class="jb">
       <div class="jh"><span class="co">${j.co}</span></div>
       ${j.roles.map(r=>role(r.tk,r.sk,r.dt,r.bk)).join('')}
-    </div>`).join('');
+    </div>`;
+  const grpLbl = txt=>`<div class="grp">${txt}</div>`;
+  const showGrp = curJobs.length && pastJobs.length;
+  const expHtml = (showGrp ? grpLbl(isRu?'Текущие':'Current') : '') + curJobs.map(jobHtml).join('')
+                + (showGrp ? grpLbl(isRu?'Предыдущие':'Previous') : '') + pastJobs.map(jobHtml).join('');
 
   const CERTS = [
     '"Project Management Skills for Leaders" — Dana Brownlee',
@@ -1286,6 +1307,7 @@ function generateCVHtml(lang) {
 @page{size:A4;margin:1.4cm 1.6cm;}
 body{font-family:${font};font-size:9.5pt;color:#111827;line-height:1.5;background:#fff;}
 a{color:inherit;text-decoration:none;}
+.grp{font-size:7.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1d4ed8;margin:6px 0 4px;}
 /* Header */
 .hdr{display:grid;grid-template-columns:1fr auto;gap:16px;padding-bottom:10px;margin-bottom:12px;border-bottom:2.5px solid #1d4ed8;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 .name{font-size:21pt;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:#111827;}
