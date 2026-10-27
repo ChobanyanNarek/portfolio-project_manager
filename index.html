@@ -527,6 +527,15 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 .hero-ai-d{font-size:.84rem;color:var(--text-muted);line-height:1.5;margin:.15rem 0 .3rem;}
 .hero-ai-a{font-size:.82rem;font-weight:500;color:var(--blue-mid);}
 .hero-ai-a:hover{text-decoration:underline;}
+
+/* role details: position + dates first, responsibilities behind a toggle */
+.rc .ral{display:none}
+.rc.rc-open .ral{display:flex}
+.det-btn{font:inherit;font-size:.76rem;font-weight:600;line-height:1.3;color:var(--blue-mid);background:none;border:0;padding:.4rem 0 0;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;text-align:left;-webkit-appearance:none;appearance:none}
+.det-btn:hover{text-decoration:underline}
+.det-btn:focus-visible{outline:2px solid var(--blue-mid);outline-offset:3px;border-radius:4px}
+.det-btn::before{content:'';flex:0 0 auto;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.rc.rc-open .det-btn::before{transform:translateY(2px) rotate(-135deg)}
 </style>
 </head>
 <body>
@@ -680,7 +689,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
         <div class="exp-cnt-lbl" data-i18n="s1_total_lbl">Total experience</div>
         <div class="exp-cnt">8+<br><span data-i18n="s1_years">Years</span></div>
         <p data-i18n="s1_p1">Proven track record of leading cross-functional teams, shipping products, and driving lean-agile transformation at scale.</p>
-        <p data-i18n="s1_p2">Senior Project Manager at M-One until October 2026 and currently a lecturer at Teachme Trainings Center.</p>
+        <p data-i18n="s1_p2">Currently active as Senior Project Manager at M-One and lecturer at Teachme Trainings Center.</p>
       </aside>
       <div class="tl">
         <div class="tl-line"></div>
@@ -702,8 +711,11 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
           </div>
           <div class="roles"><div class="rc"><div><div class="rt" data-i18n="r_mone">Senior Project Manager</div>
           <div class="ral">
-            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b1">Driving project strategy, planning and stakeholder alignment across engineering and business teams</span></div>
-            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b2">Establishing agile delivery framework and OKR-based planning cycles from early stage</span></div>
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b1">Planned and ran delivery of web and mobile projects: scope, timelines, estimates, resources, budgets and risks</span></div>
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b2">Set up an agile delivery framework and OKR-based planning cycles from an early stage</span></div>
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b3">Led sprint planning, reviews and retrospectives; coordinated developers, QA and designers through release</span></div>
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b4">Managed client communication and expectations, including pre-sales estimates and proposals</span></div>
+            <div class="ra"><span class="ra-dot"></span><span data-ra="r_mone_b5">Reported progress, milestones and key metrics to stakeholders and senior management</span></div>
           </div></div><span class="rd">11/2025 — 10/2026</span></div></div>
         </div>
         <div class="co reveal">
@@ -1018,8 +1030,7 @@ h2.sec-h{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font
 ════════════════════════════════════════ */
 const B = {
 en:{
-  r_mone_b1:'Driving project strategy, planning and stakeholder alignment across engineering and business teams',
-  r_mone_b2:'Establishing agile delivery framework and OKR-based planning cycles from early stage',
+  r_mone_b1:'Planned and ran delivery of web and mobile projects: scope, timelines, estimates, resources, budgets and risks', r_mone_b2:'Set up an agile delivery framework and OKR-based planning cycles from an early stage', r_mone_b3:'Led sprint planning, reviews and retrospectives; coordinated developers, QA and designers through release', r_mone_b4:'Managed client communication and expectations, including pre-sales estimates and proposals', r_mone_b5:'Reported progress, milestones and key metrics to stakeholders and senior management',
   r_tm_b1:'Designed end-to-end curriculum covering Scrum, Kanban, SAFe, and core PM frameworks',
   r_tm_b2:'Coaching professionals actively transitioning into IT project management careers',
   r_sc1_b1:'Oversaw Lean-Agile delivery standards and transformation across the full PM division',
@@ -1043,8 +1054,7 @@ en:{
   r_uc_b2:'Built deep product knowledge of telecom services, forming the foundation for later PM work',
 },
 ru:{
-  r_mone_b1:'Разрабатываю стратегию проектов, планирование и согласовываю стейкхолдеров из инженерных и бизнес-команд',
-  r_mone_b2:'Выстраиваю agile-фреймворк поставки и OKR-планирование с ранней стадии',
+  r_mone_b1:'Планировал и вёл поставку веб- и мобильных проектов: объём, сроки, оценки, ресурсы, бюджеты и риски', r_mone_b2:'Выстроил agile-фреймворк поставки и OKR-планирование с ранней стадии', r_mone_b3:'Проводил планирование спринтов, ревью и ретроспективы; координировал разработчиков, QA и дизайнеров до релиза', r_mone_b4:'Вёл коммуникацию с клиентом и управление ожиданиями, включая пресейл-оценки и предложения', r_mone_b5:'Отчитывался о прогрессе, вехах и ключевых метриках перед стейкхолдерами и руководством',
   r_tm_b1:'Разработал комплексную программу, охватывающую Scrum, Kanban, SAFe и основные PM-фреймворки',
   r_tm_b2:'Коучинг профессионалов, активно переходящих в управление IT-проектами',
   r_sc1_b1:'Контролировал Lean-Agile трансформацию и стандарты поставки в рамках всего PM-подразделения',
@@ -1086,7 +1096,7 @@ en:{
   s1_sub:'A decade of driving agile delivery and product strategy across fintech, gaming, telecom, and e-commerce — from individual contributor to division lead and educator.',
   s1_total_lbl:'Total experience', s1_years:'Years',
   s1_p1:'Proven track record of leading cross-functional teams, shipping products, and driving lean-agile transformation at scale.',
-  s1_p2:'Senior Project Manager at M-One until October 2026 and currently a lecturer at Teachme Trainings Center.',
+  s1_p2:'Currently active as Senior Project Manager at M-One and lecturer at Teachme Trainings Center.',
   r_present:'Present', tag_concurrent:'3 concurrent roles', tag_current:'Current', tag_mone:'IT Outsourcing · Web & Mobile', tag_edu:'Education', tag_fg:'Fintech · Gaming',
   tag_con:'Contract', tag_ec:'E-Commerce · Remote', tag_tel:'Telecom',
   r_mone:'Senior Project Manager',
@@ -1150,7 +1160,7 @@ ru:{
   s1_sub:'Десятилетие управления гибкими поставками и продуктовой стратегией в финтех, гейминге, телекоме и e-commerce — от исполнителя до руководителя подразделения и преподавателя.',
   s1_total_lbl:'Общий опыт', s1_years:'Лет',
   s1_p1:'Подтверждённый опыт руководства кросс-функциональными командами, запуска продуктов и внедрения Lean-Agile трансформации в масштабе.',
-  s1_p2:'Senior Project Manager в M-One до октября 2026 и в настоящее время преподаватель в Teachme Trainings Center.',
+  s1_p2:'В настоящее время — Senior Project Manager в M-One и преподаватель в Teachme Trainings Center.',
   r_present:'По наст. время', tag_concurrent:'3 роли одновременно', tag_current:'Текущая', tag_mone:'IT-аутсорсинг · Веб и мобайл', tag_edu:'Образование', tag_fg:'Финтех · Гейминг',
   tag_con:'Контракт', tag_ec:'E-Commerce · Удалённо', tag_tel:'Телеком',
   r_mone:'Старший менеджер проектов',
@@ -1241,7 +1251,7 @@ function generateCVHtml(lang) {
 
   const JOBS = [
     { co:'M-One', dates:'11/2025 — 10/2026', roles:[
-        { tk:t.r_mone, sk:null, dt:'11/2025 — 10/2026', bk:['r_mone_b1','r_mone_b2'] }]},
+        { tk:t.r_mone, sk:null, dt:'11/2025 — 10/2026', bk:['r_mone_b1','r_mone_b2','r_mone_b3','r_mone_b4','r_mone_b5'] }]},
     { co:'Teachme Trainings Center', dates:`01/2025 — ${present}`, roles:[
         { tk:t.r_tm, sk:t.r_tm_s, dt:`01/2025 — ${present}`, bk:['r_tm_b1','r_tm_b2'] }]},
     { co:'SoftConstruct CJSC', dates:'02/2022 — 10/2025', roles:[
@@ -1703,6 +1713,28 @@ if (!('ontouchstart' in window)) {
     b.addEventListener('mouseleave', () => { b.style.transform=''; });
   });
 }
+</script>
+<script>
+/* role details toggle */
+(function(){
+  Object.assign(T.en,{cv_det:'Show details',cv_hide:'Hide details'});
+  Object.assign(T.ru,{cv_det:'Показать детали',cv_hide:'Скрыть детали'});
+  var L=function(){return document.documentElement.getAttribute('data-lang')||'en';};
+  var tr=function(k){return (T[L()]&&T[L()][k])||T.en[k]||k;};
+  document.querySelectorAll('#experience .rc').forEach(function(rc){
+    var ral=rc.querySelector('.ral'); if(!ral) return;
+    var b=document.createElement('button'); b.type='button'; b.className='det-btn';
+    b.setAttribute('data-i18n','cv_det'); b.textContent=tr('cv_det');
+    b.setAttribute('aria-expanded','false');
+    b.onclick=function(){
+      var o=rc.classList.toggle('rc-open');
+      var k=o?'cv_hide':'cv_det'; b.setAttribute('data-i18n',k); b.textContent=tr(k);
+      b.setAttribute('aria-expanded',o?'true':'false');
+    };
+    ral.parentNode.insertBefore(b,ral);
+  });
+  setLang(L());
+})();
 </script>
 </body>
 </html>
