@@ -1589,20 +1589,112 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
 ════════════════════════════════════════ */
 (function() {
   const NOTIFY_URL = 'https://script.google.com/macros/s/AKfycbyj3XYWXpLDiUtZZmQisdM4DNrKIWfjxkiUSk0ZNYBsZLBhWoJ4M7aVPhdVmZRj9s1M/exec';
-  try { if (sessionStorage.getItem('_nc_pv')) return; sessionStorage.setItem('_nc_pv', '1'); } catch (e) {}
-  if (navigator.webdriver || /bot|crawl|spider|headless|preview|lighthouse/i.test(navigator.userAgent) || window.self !== window.top) return;
-  function send(extra) {
-    const msg = '👀 Portfolio visit\n' + new Date().toLocaleString('en-GB', { timeZone: 'Asia/Yerevan' }) + ' (Yerevan)\n' +
-      location.pathname + '\n' + extra +
-      'Lang: ' + (navigator.language || '-') + ' · Screen: ' + screen.width + 'x' + screen.height +
-      '\nFrom: ' + (document.referrer || 'direct');
-    fetch(NOTIFY_URL, { method: 'POST', mode: 'no-cors', body: msg }).catch(function() {});
+
+  if (sessionStorage.getItem('_nc_pv' + location.pathname)) return;
+
+  const ua = navigator.userAgent || '';
+  const BOT = /bot|crawl|spider|slurp|preview|prerender|headless|phantom|selenium|puppeteer|playwright|slack|telegram|whatsapp|facebook|twitter|linkedin|google|bing|baidu|yandex|duckduck|archive|wget|curl|python-|java\/|ruby|go-http|okhttp/i;
+  if (BOT.test(ua)) return;
+
+  try { if (window.self !== window.top) return; } catch(e) { return; }
+
+  function tgSend(msg) {
+    msg = (msg || '').replace(/<[^>]+>/g, '');
+    if (msg.trim().length < 5) return;
+    fetch(NOTIFY_URL, { method: 'POST', mode: 'no-cors', body: msg }).catch(function(){});
   }
+
+  function getInfo() {
+    let device = '🖥 Desktop';
+    if (/Mobi|Android|iPhone|iPad/i.test(ua)) device = '📱 Mobile';
+    else if (/Tablet/i.test(ua))              device = '📟 Tablet';
+    let browser = 'Unknown';
+    if      (/Firefox/i.test(ua))   browser = 'Firefox';
+    else if (/Edg/i.test(ua))       browser = 'Edge';
+    else if (/Chrome/i.test(ua))    browser = 'Chrome';
+    else if (/Safari/i.test(ua))    browser = 'Safari';
+    else if (/Opera|OPR/i.test(ua)) browser = 'Opera';
+    const lang = navigator.language || '?';
+    const tz   = Intl.DateTimeFormat().resolvedOptions().timeZone || '?';
+    const ref  = document.referrer || 'Direct';
+    const now  = new Date().toLocaleString('en-GB', { timeZone: tz, hour12: false });
+    const p    = new URLSearchParams(window.location.search);
+    const utm  = p.get('utm_source') || p.get('ref') || '';
+    let refLine = '🔗 <b>From:</b> ' + ref;
+    if (utm) refLine += '\n📌 UTM: ' + utm;
+    return { device, browser, lang, tz, refLine, now };
+  }
+
+  async function getLocation() {
+    try {
+      const ctrl = new AbortController();
+      const tid  = setTimeout(function(){ ctrl.abort(); }, 4000);
+      const r    = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
+      clearTimeout(tid);
+      const d = await r.json();
+      if (!d || d.error || d.reason || !d.country_name) return '📍 Location unavailable';
+      return '📍 ' + (d.city||'?') + ', ' + d.country_name +
+             '\n🌐 IP: ' + (d.ip||'?') +
+             (d.org ? '\n🏢 ' + d.org : '');
+    } catch(e) { return '📍 Location unavailable'; }
+  }
+
+  // ── 1. PAGE VIEW ──────────────────────────────────────
   window.addEventListener('load', function() {
-    fetch('https://ipapi.co/json/').then(function(r) { return r.json(); })
-      .then(function(d) { send('Location: ' + [d.city, d.country_name].filter(Boolean).join(', ') + '\n'); })
-      .catch(function() { send(''); });
+    function fire() {
+      if (sessionStorage.getItem('_nc_pv' + location.pathname)) return;
+      sessionStorage.setItem('_nc_pv' + location.pathname, '1');
+      (async function() {
+        var i   = getInfo();
+        var loc = await getLocation();
+        tgSend('👁 <b>Portfolio Viewed</b>\n' +
+               '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+               i.device + ' · ' + i.browser + '\n' +
+               '🌐 ' + i.lang + '\n' +
+               loc + '\n' + i.refLine);
+      })();
+    }
+    if (document.visibilityState === 'visible') {
+      fire();
+    } else {
+      document.addEventListener('visibilitychange', function h() {
+        if (document.visibilityState === 'visible') {
+          document.removeEventListener('visibilitychange', h);
+          fire();
+        }
+      });
+    }
   });
+
+  // ── 2. CV DOWNLOAD ──────────────────────────────────
+  var cvBtn = document.getElementById('cvBtn');
+  if (cvBtn) {
+    cvBtn.addEventListener('click', async function() {
+      var i   = getInfo();
+      var loc = await getLocation();
+      tgSend('📄 <b>CV Downloaded</b>\n' +
+             '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+             i.device + ' · ' + i.browser + '\n' +
+             loc + '\n' + i.refLine);
+    });
+  }
+
+  // ── 3. CONTACT LINK CLICKS ───────────────────────
+  document.querySelectorAll('a.ccard').forEach(function(link) {
+    link.addEventListener('click', async function() {
+      var el    = link.querySelector('.clbl');
+      var label = (el && el.innerText && el.innerText.trim()) ? el.innerText.trim()
+                : (link.getAttribute('href') || '').replace(/^(mailto:|tel:)/,'');
+      if (!label || label.length < 2) return;
+      var i   = getInfo();
+      var loc = await getLocation();
+      tgSend('🖱 <b>Contact: ' + label + '</b>\n' +
+             '🕐 ' + i.now + ' (' + i.tz + ')\n' +
+             i.device + ' · ' + i.browser + '\n' +
+             loc + '\n' + i.refLine);
+    });
+  });
+
 })();
 
 /* ════════════════════════════════════════
